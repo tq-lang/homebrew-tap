@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tap local repo
+        run: brew tap tq-lang/tap .
+
+      - name: Audit cask
+        run: brew audit tq-lang/tap/tq
+        continue-on-error: true
+
+      - name: Install
+        run: brew install tq-lang/tap/tq
+
+      - name: Smoke test
+        run: |
+          tq --version
+          echo '{"a":1}' | tq '.a' | grep -q '^1$'
