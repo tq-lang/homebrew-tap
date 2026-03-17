@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tap local repo
+        run: brew tap tq-lang/tap .
+
+      - name: Check formula presence
+        id: formula
+        run: |
+          if [ -f Formula/tq.rb ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Audit formula
+        if: steps.formula.outputs.exists == 'true'
+        run: brew audit --strict tq-lang/tap/tq
+
+      - name: Install formula
+        if: steps.formula.outputs.exists == 'true'
+        run: brew install tq-lang/tap/tq
+
+      - name: Smoke test
+        if: steps.formula.outputs.exists == 'true'
+        run: |
+          tq --version
+          echo '{"a":1}' | tq '.a' | grep -q '^1$'
+
+      - name: Skip notice (formula not added yet)
+        if: steps.formula.outputs.exists != 'true'
+        run: echo "Formula/tq.rb not present yet; skipping brew audit/install/smoke."
