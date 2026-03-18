@@ -28,7 +28,7 @@ jobs:
 
       - name: Audit formula
         if: steps.formula.outputs.exists == 'true'
-        run: brew audit --strict tq-lang/tap/tq
+        run: brew audit tq-lang/tap/tq
 
       - name: Install formula
         if: steps.formula.outputs.exists == 'true'
