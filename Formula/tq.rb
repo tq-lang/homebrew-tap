@@ -5,21 +5,21 @@
 class Tq < Formula
   desc "Command-line TOON/JSON processor — jq for TOON"
   homepage "https://github.com/tq-lang/tq"
-  version "0.1.0-rc1"
+  version "0.1.0"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/tq-lang/tq/releases/download/v0.1.0-rc1/tq_0.1.0-rc1_darwin_amd64.tar.gz"
-      sha256 "98f22c1e54d3dde7bec9fe481512f65d402c9cf8c11fd453040b1a7ff81cd980"
+      url "https://github.com/tq-lang/tq/releases/download/v0.1.0/tq_0.1.0_darwin_amd64.tar.gz"
+      sha256 "2f69feedf9bc8fb02f76d2231a55e8858eead8763be40c9bc0e3f1d6772b7430"
 
       define_method(:install) do
         bin.install "tq"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/tq-lang/tq/releases/download/v0.1.0-rc1/tq_0.1.0-rc1_darwin_arm64.tar.gz"
-      sha256 "41c193f40b8abec3255857853e05a224192c0b3b531d2df422038eb83eacd42a"
+      url "https://github.com/tq-lang/tq/releases/download/v0.1.0/tq_0.1.0_darwin_arm64.tar.gz"
+      sha256 "46b93bf31f81bd9f6e378c470b2514905ec098911f1df4dd01526f302c5d6b32"
 
       define_method(:install) do
         bin.install "tq"
@@ -29,15 +29,15 @@ class Tq < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/tq-lang/tq/releases/download/v0.1.0-rc1/tq_0.1.0-rc1_linux_amd64.tar.gz"
-      sha256 "652f74b6ee207a64d3b62e8f60fc243b25706cc738606a566bb249b468f5cb38"
+      url "https://github.com/tq-lang/tq/releases/download/v0.1.0/tq_0.1.0_linux_amd64.tar.gz"
+      sha256 "36aae4797b1ac6e530dd5a3fa9e265ff85c171ef27e34cd1877f6ca5bce15b03"
       define_method(:install) do
         bin.install "tq"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/tq-lang/tq/releases/download/v0.1.0-rc1/tq_0.1.0-rc1_linux_arm64.tar.gz"
-      sha256 "72742c3f8a9f13f6ba67bc78a9675b32997c1a3a82ea2caea6dcb21cc9132002"
+      url "https://github.com/tq-lang/tq/releases/download/v0.1.0/tq_0.1.0_linux_arm64.tar.gz"
+      sha256 "b1d3b27e4aa0d71c3f229e390d7c94cf132363e8d4921a525356a118d45540f6"
       define_method(:install) do
         bin.install "tq"
       end
